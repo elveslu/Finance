@@ -22,7 +22,7 @@ class FinanceBoundModel extends Model
         $goodsModel = new GoodsModel();
         $goodinfo = $goodsModel->find($data['goods_id']);
         $totalAmount = number_format($goodinfo['size']*$goodinfo['buying_price']*$data['size'],2,'.','');
-echo '<pre>';print_r($totalAmount);exit;
+
         $amount = $totalAmount + $data['float_money'];
 
         $user = cmf_get_current_user();
