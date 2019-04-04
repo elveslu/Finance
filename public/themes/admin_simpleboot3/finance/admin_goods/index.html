@@ -3,8 +3,8 @@
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="javascript:;">商品列表</a></li>
-        <li><a href="{:url('AdminGoods/add')}">添加商品</a></li>
+        <li class="active"><a href="javascript:;">产品列表</a></li>
+        <li><a href="{:url('AdminGoods/add')}">添加产品</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('AdminGoods/index')}">&nbsp;
         关键字:
@@ -59,9 +59,9 @@
                     <td>
                         <a class="btn btn-xs btn-primary" href="{:url('AdminGoods/edit',['id'=>$vo.id])}">编辑</a> |
                         <if condition="$vo.status">
-                            <a class="js-ajax-delete btn btn-xs  btn-danger js-ajax-dialog-btn" data-msg="您确定下架该商品吗？" href="{:url('AdminGoods/down',array('id'=>$vo['id'],'type'=>'down'))}">下架</a>
+                            <a class="js-ajax-delete btn btn-xs  btn-danger js-ajax-dialog-btn" data-msg="您确定下架该产品吗？" href="{:url('AdminGoods/down',array('id'=>$vo['id'],'type'=>'down'))}">下架</a>
                             <else>
-                                <a class="js-ajax-delete btn btn-xs btn-warning js-ajax-dialog-btn" data-msg="您确定上架该商品吗？" href="{:url('AdminGoods/down',array('id'=>$vo['id'],'type'=>'up'))}">上架</a>
+                                <a class="js-ajax-delete btn btn-xs btn-warning js-ajax-dialog-btn" data-msg="您确定上架该产品吗？" href="{:url('AdminGoods/down',array('id'=>$vo['id'],'type'=>'up'))}">上架</a>
                             </else>
                         </if>
                     </td>
