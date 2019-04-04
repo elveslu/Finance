@@ -41,23 +41,17 @@ CREATE TABLE `cmf_goods` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='商品表';
 
 
--- 支付单表
-DROP TABLE IF EXISTS `cmf_shop_payments`;
-CREATE TABLE `cmf_shop_payments` (
-  `payment_id` varchar(20) NOT NULL DEFAULT '' COMMENT '支付单id',
-  `money` decimal(20,3) NOT NULL DEFAULT '0.000' COMMENT '支付金额',
+-- 单据表
+DROP TABLE IF EXISTS `cmf_finance_bound`;
+CREATE TABLE `cmf_finance_bound` (
+  `bound_id` varchar(20) NOT NULL DEFAULT '' COMMENT '单据id',
+  `money` decimal(20,3) NOT NULL DEFAULT '0.000' COMMENT '单据金额',
+  `float_money` decimal(20,3) NOT NULL DEFAULT '0.000' COMMENT '浮动金额',
+  `amount` decimal(20,3) NOT NULL DEFAULT '0.000' COMMENT '最终金额',
   `user_id` varchar(100) DEFAULT NULL COMMENT '会员id',
-  `status` enum('succ','failed','cancel','error','invalid','progress','timeout','ready') NOT NULL DEFAULT 'ready' COMMENT '状态',
-  `pay_name` varchar(100) DEFAULT NULL COMMENT '支付方式',
-  `pay_type` enum('online','offline','deposit') NOT NULL DEFAULT 'online' COMMENT '支付类型',
-  `t_payed` int(10) unsigned DEFAULT NULL COMMENT '支付时间',
-  `account` varchar(50) DEFAULT NULL COMMENT '收款账号',
-  `bank` varchar(50) DEFAULT NULL COMMENT '收款银行',
-  `pay_account` varchar(50) DEFAULT NULL COMMENT '支付账号',
-  `pay_app_id` varchar(100) NOT NULL DEFAULT '0' COMMENT '支付方式id',
-  `t_begin` int(10) unsigned DEFAULT NULL COMMENT '创建时间',
-  `memo` longtext COMMENT '备注',
-  `return_url` varchar(100) DEFAULT NULL COMMENT '返回url',
-  `trade_no` varchar(30) DEFAULT NULL COMMENT '外部订单号',
-  PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付单表';
+  `type` varchar(100) NOT NULL DEFAULT 'inBound' COMMENT '单据类型-inBound,outBound',
+  `memo` longtext COMMENT '单据备注',
+  `goods` longtext NOT NULL COMMENT '产品',
+  `createtime` int(10) unsigned DEFAULT NULL COMMENT '生成时间',
+  PRIMARY KEY (`bound_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单据表';

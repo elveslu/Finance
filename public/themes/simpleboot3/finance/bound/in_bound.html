@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$user_login}  - 进货</title>
+<meta name="keywords" content=""/>
+<meta name="description" content="">
+<include file="public@head"/>
+</head>
+<body class="body-white" id="top">
+	<include file="public@nav" />
+
+		<div class="container tc-main">
+                <div class="row">
+
+                    <div class="col-md-9">
+                           <div class="tabs">
+                               <ul class="nav nav-tabs">
+                                   <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-edit"></i> 产品进货</a></li>
+                               </ul>
+                               <div class="tab-content">
+                                   <div class="tab-pane active" id="one">
+                                   		<br>
+                                   		<form class="js-ajax-form" action="{:url('finance/bound/jumpInBound')}" method="post">
+                                   			<div class="form-group">
+                                   				<label for="input-sex">入库产品</label>
+                               					<select class="form-control" id="input-sex" name="goods_id">
+                               						<foreach name="goods" item="vo">
+                               							<option value="{$vo.id}">{$vo.name}</option>
+                               						</foreach>
+                               					</select>
+                                   			</div>
+                                   			<div class="form-group">
+                                   				<label for="input-user_url">箱数</label>
+                                   				<input class="form-control" type="text" id="input-user_url" name="size" placeholder="箱数-请填写大于等于0的整数" required>
+                                   			</div>
+											<div class="form-group">
+												<label for="input-user_url">浮动金额</label>
+												<input class="form-control" type="text" id="input-float_money" name="float_money" placeholder="浮动金额-当实际进货金额小于进货价，请填写负数，反之填写正数" required value="0">
+											</div>
+											<div class="form-group">
+												<label for="input-signature">备注</label>
+												<textarea class="form-control" id="input-signature" placeholder="备注" name="memo"></textarea>
+											</div>
+                                   			<div class="form-group">
+                                   				<button type="submit" class="btn btn-primary js-ajax-submit">确认</button>
+                                   			</div>
+                                   		</form>
+                                   </div>
+                               </div>							
+                           </div>
+                    </div>
+                </div>
+			<include file="public@footer" />
+		</div>
+	<!-- /container -->
+	<include file="public@scripts" />
+</body>
+</html>
