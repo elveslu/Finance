@@ -1,0 +1,97 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+</style>
+<script type="text/html" id="photos-item-tpl">
+    <li id="saved-image{id}">
+        <input id="photo-{id}" type="hidden" name="photo_urls[]" value="{filepath}">
+        <input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+               style="width: 200px;" title="图片名称">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+             onclick="imagePreviewDialog(this.src);">
+        <a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="files-item-tpl">
+    <li id="saved-file{id}">
+        <input id="file-{id}" type="hidden" name="file_urls[]" value="{filepath}">
+        <input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+               style="width: 200px;" title="文件名称">
+        <a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+        <a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+        <a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+    </li>
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminGoods/index')}">产品列表</a></li>
+        <li class="active"><a href="{:url('AdminGoods/add')}">添加产品</a></li>
+    </ul>
+    <form action="{:url('AdminGoods/addPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>产品名称<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" name="post[name]"
+                                   id="title"  value="" placeholder="请输入产品名称"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>每箱数量<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="number" name="post[size]" min="0" value="" placeholder="请填写每箱数量"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>进货单价<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="number" name="post[buying_price]" min="0" value="" placeholder="请填写商品进货单价"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>总监价<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="number" name="post[GM_price]" min="0" value="" placeholder="请填写总监价"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>省代价<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="number" name="post[provincial_price]" min="0" value="" placeholder="请填写省代价"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>VIP价<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="number" name="post[vip_price]" min="0" value="" placeholder="请填写VIP价"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>零售价<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="number" name="post[retail_price]" min="0" value="" placeholder="请填写商品零售价"/>
+                        </td>
+                    </tr>
+                </table>
+                <hook name="portal_admin_article_edit_view_main"/>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                        <a class="btn btn-default" href="{:url('AdminGoods/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--<script type="text/javascript" src="__STATIC__/js/distpicker/proCityCountry.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

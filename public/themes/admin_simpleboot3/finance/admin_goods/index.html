@@ -1,0 +1,158 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">商品列表</a></li>
+        <li><a href="{:url('AdminGoods/add')}">添加商品</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('AdminGoods/index')}">&nbsp;
+        关键字:
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入关键字...">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('AdminGoods/index')}">清空</a>
+    </form>
+    <form class="js-ajax-form" action="" method="post">
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th width="50">ID</th>
+                <th>产品名称</th>
+                <th>个/箱</th>
+                <th>进货单价</th>
+                <th>总监价</th>
+                <th>省代价</th>
+                <th>VIP价</th>
+                <th>零售价</th>
+                <th width="160">更新时间</th>
+                <th width="160">发布时间</th>
+                <th width="80">库存</th>
+                <th width="70">状态</th>
+                <th width="150">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.size}</td>
+                    <td>{$vo.buying_price}</td>
+                    <td>{$vo.GM_price}</td>
+                    <td>{$vo.provincial_price}</td>
+                    <td>{$vo.vip_price}</td>
+                    <td>{$vo.retail_price}</td>
+                    <!--<td>{$vo.description}</td>-->
+                    <td>
+                        <notempty name="vo.update_time">
+                            {:date('Y-m-d H:i',$vo['update_time'])}
+                        </notempty>
+                    </td>
+                    <td>
+                        <notempty name="vo.published_time">
+                            {:date('Y-m-d H:i',$vo['published_time'])}
+                        </notempty>
+                    </td>
+                    <td>{$vo.num}</td>
+                    <td>{$vo.status?'已上架':'已下架'}</td>
+                    <td>
+                        <a class="btn btn-xs btn-primary" href="{:url('AdminGoods/edit',['id'=>$vo.id])}">编辑</a> |
+                        <if condition="$vo.status">
+                            <a class="js-ajax-delete btn btn-xs  btn-danger js-ajax-dialog-btn" data-msg="您确定下架该商品吗？" href="{:url('AdminGoods/down',array('id'=>$vo['id'],'type'=>'down'))}">下架</a>
+                            <else>
+                                <a class="js-ajax-delete btn btn-xs btn-warning js-ajax-dialog-btn" data-msg="您确定上架该商品吗？" href="{:url('AdminGoods/down',array('id'=>$vo['id'],'type'=>'up'))}">上架</a>
+                            </else>
+                        </if>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th width="50">ID</th>
+                <th>产品名称</th>
+                <th>个/箱</th>
+                <th>进货单价</th>
+                <th>总监价</th>
+                <th>省代价</th>
+                <th>VIP价</th>
+                <th>零售价</th>
+                <th width="160">更新时间</th>
+                <th width="160">发布时间</th>
+                <th width="80">库存</th>
+                <th width="70">状态</th>
+                <th width="150">操作</th>
+            </tr>
+            </tfoot>
+        </table>
+        <ul class="pagination">{$page|default=''}</ul>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+
+    function reloadPage(win) {
+        win.location.reload();
+    }
+
+    $(function () {
+        setCookie("refersh_time", 0);
+        Wind.use('ajaxForm', 'artDialog', 'iframeTools', function () {
+            //批量复制
+            $('.js-articles-copy').click(function (e) {
+                var ids = [];
+                $("input[name='ids[]']").each(function () {
+                    if ($(this).is(':checked')) {
+                        ids.push($(this).val());
+                    }
+                });
+
+                if (ids.length == 0) {
+                    art.dialog.through({
+                        id: 'error',
+                        icon: 'error',
+                        content: '您没有勾选信息，无法进行操作！',
+                        cancelVal: '关闭',
+                        cancel: true
+                    });
+                    return false;
+                }
+
+                ids = ids.join(',');
+                art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=copy&ids=" + ids, {
+                    title: "批量复制",
+                    width: "300px"
+                });
+            });
+            //批量移动
+            $('.js-articles-move').click(function (e) {
+                var ids = [];
+                $("input[name='ids[]']").each(function () {
+                    if ($(this).is(':checked')) {
+                        ids.push($(this).val());
+                    }
+                });
+
+                if (ids.length == 0) {
+                    art.dialog.through({
+                        id: 'error',
+                        icon: 'error',
+                        content: '您没有勾选信息，无法进行操作！',
+                        cancelVal: '关闭',
+                        cancel: true
+                    });
+                    return false;
+                }
+
+                ids = ids.join(',');
+                art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=move&old_term_id={$term.term_id|default=0}&ids=" + ids, {
+                    title: "批量移动",
+                    width: "300px"
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
