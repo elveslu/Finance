@@ -1,2 +1,2 @@
 # Finance
-WEILAIYA Finance System
+Finance System For WEILAIYA
