@@ -86,7 +86,7 @@ class LoginController extends HomeBaseController
             switch ($log) {
                 case 0:
                     cmf_user_action('login');
-                    $this->success(lang('LOGIN_SUCCESS'), $redirect);
+                    $this->success(lang('LOGIN_SUCCESS'), url("finance/bound/inBound"));
                     break;
                 case 1:
                     $this->error(lang('PASSWORD_NOT_RIGHT'));
