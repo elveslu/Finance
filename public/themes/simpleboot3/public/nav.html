@@ -8,11 +8,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="__ROOT__/">{$theme_vars.company_name|default='ThinkCMF'}</a>
+            <a class="navbar-brand" href="__ROOT__/finance/Bound/inBound.html">{$theme_vars.company_name|default='ThinkCMF'}</a>
         </div>
 
         <div class="collapse navbar-collapse active" id="bs-example-navbar-collapse-1">
-            <ul id="main-menu" class="nav navbar-nav">
+            <!--ul id="main-menu" class="nav navbar-nav">
                 <navigation nav-id="" root="" id="main-navigation" class="nav navbar-nav navbar-nav-custom"
                             max-level="0">
                     <navigationMenu>
@@ -39,7 +39,7 @@
                         </a>
                     </navigationFolder>
                 </navigation>
-            </ul>
+            </ul-->
             <ul class="nav navbar-nav navbar-right" id="main-menu-user">
                 <!--
                 <li class="login">
@@ -58,7 +58,7 @@
                         <span class="user-nickname"></span><b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="{:cmf_url('user/Profile/center')}"><i class="fa fa-home"></i> &nbsp;个人中心</a></li>
+                        <!--li><a href="{:cmf_url('user/Profile/center')}"><i class="fa fa-home"></i> &nbsp;个人中心</a></li-->
                         <li class="divider"></li>
                         <li><a href="{:cmf_url('user/Index/logout')}"><i class="fa fa-sign-out"></i> &nbsp;退出</a></li>
                     </ul>
@@ -71,17 +71,17 @@
                     <ul class="dropdown-menu pull-right">
                         <li><a href="{:cmf_url('user/Login/index')}"><i class="fa fa-sign-in"></i> &nbsp;登录</a></li>
                         <li class="divider"></li>
-                        <li><a href="{:cmf_url('user/Register/index')}"><i class="fa fa-user"></i> &nbsp;注册</a></li>
+                        <!--li><a href="{:cmf_url('user/Register/index')}"><i class="fa fa-user"></i> &nbsp;注册</a></li-->
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right" method="post" action="{:cmf_url('portal/Search/index')}">
+            <!--form class="navbar-form navbar-right" method="post" action="{:cmf_url('portal/Search/index')}">
                 <div class="form-group">
                     <input type="text" class="form-control" name="keyword" placeholder="Search"
                            value="{:input('param.keyword','')}">
                 </div>
                 <input type="submit" class="btn btn-primary" value="Go" style="margin:0"/>
-            </form>
+            </form-->
         </div>
     </div>
 </nav>
