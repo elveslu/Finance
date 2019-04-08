@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$user_login}  - 出货</title>
+<meta name="keywords" content=""/>
+<meta name="description" content="">
+<include file="public@head"/>
+</head>
+<body class="body-white" id="top">
+	<include file="public@nav" />
+
+		<div class="container tc-main">
+                <div class="row">
+
+                    <div class="col-md-9">
+                           <div class="tabs">
+                               <ul class="nav nav-tabs">
+                                   <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-edit"></i> 产品出货</a></li>
+                               </ul>
+                               <div class="tab-content">
+                                   <div class="tab-pane active" id="one">
+                                   		<br>
+                                   		<form class="js-ajax-form" action="{:url('finance/bound/jumpOutBound')}" method="post">
+                                   			<div class="form-group">
+                                   				<label for="input-sex">出货等级</label>
+                               					<select class="form-control" id="input-sex" name="out_grade">
+													<option value="GM_price">总监</option>
+													<option value="provincial_price">省代</option>
+													<option value="vip_price">VIP</option>
+													<option value="retail_price">零售</option>
+                               					</select>
+                                   			</div>
+											<foreach name="goods" item="vo">
+												<div class="form-group">
+													<label>{$vo.name}</label>
+													<input class="form-control" type="number" name="goods[{$vo.id}]" placeholder="请填写出货个数">
+												</div>
+											</foreach>
+											<div class="form-group">
+												<label>浮动金额</label>
+												<input class="form-control" type="number" id="input-float_money" name="float_money" placeholder="浮动金额-当实际进货金额小于进货价，请填写负数，反之填写正数" required value="0">
+											</div>
+											<div class="form-group">
+												<label for="input-signature">备注</label>
+												<textarea class="form-control" id="input-signature" placeholder="备注" name="memo"></textarea>
+											</div>
+                                   			<div class="form-group">
+                                   				<button type="submit" class="btn btn-primary js-ajax-submit">确认</button>
+                                   			</div>
+                                   		</form>
+                                   </div>
+                               </div>							
+                           </div>
+                    </div>
+                </div>
+			<include file="public@footer" />
+		</div>
+	<!-- /container -->
+	<include file="public@scripts" />
+</body>
+</html>

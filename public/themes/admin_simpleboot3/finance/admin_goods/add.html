@@ -79,6 +79,17 @@
                             <input class="form-control" type="number" name="post[retail_price]" min="0" value="" placeholder="请填写产品零售价"/>
                         </td>
                     </tr>
+                    <tr>
+                        <th>组合零售活动<span class="form-required">*</span></th>
+                        <td>
+                            <select class="form-control" name="post[group_id]" style="width: 140px;">
+                                <option value='0'>全部</option>
+                                <foreach name="myGroups" item="vo">
+                                    <option value="{$vo.id}" {$vo.selected}>{$vo.name}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                    </tr>
                 </table>
                 <hook name="portal_admin_article_edit_view_main"/>
                 <div class="form-group">

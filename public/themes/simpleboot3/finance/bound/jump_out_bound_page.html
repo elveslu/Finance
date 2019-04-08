@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$user_login}  - 出货</title>
+<meta name="keywords" content=""/>
+<meta name="description" content="">
+<include file="public@head"/>
+</head>
+<body class="body-white" id="top">
+	<include file="public@nav" />
+
+		<div class="container tc-main">
+                <div class="row">
+
+                    <div class="col-md-9">
+                           <div class="tabs">
+                               <ul class="nav nav-tabs">
+                                   <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-edit"></i> 产品出货</a></li>
+                               </ul>
+                               <div class="tab-content">
+                                   <div class="tab-pane active" id="one">
+                                   		<br>
+                                   		<form class="js-ajax-form" action="{:url('finance/bound/SureOutBound')}" method="post">
+											<div class="col-md-9">
+												<div class="form-group">
+													<label class="control-label">出库产品</label>
+													<div>{$boundinfo.goods_info}</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label" >合计</label>
+													<div>
+														{$boundinfo.money} 元
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label" >套装优惠金额</label>
+													<div>
+														{$boundinfo.grade_pmt} 元
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label" >浮动价格</label>
+													<div>
+														{$boundinfo.float_money} 元
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label" >最终价格</label>
+													<div>
+														{$boundinfo.amount} 元
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label">备注</label>
+													<div>{$boundinfo.memo}</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label">请在确认无误后点击“出库”录入系统，如有错误请点击“返回”进行修改！</label>
+											</div>
+											<input type="hidden" id="bound_id" name="bound_id" value="{$boundinfo.bound_id}">
+                                   			<div class="form-group">
+                                   				<button type="submit" class="btn btn-primary js-ajax-submit">出库</button>
+											</div>
+                                   		</form>
+									   <form class="js-ajax-form" action="{:url('finance/bound/CancelOutBound')}" method="post">
+										   <input type="hidden" id="input-user_nickname" name="bound_id" value="{$boundinfo.bound_id}">
+										   <button type="submit" class="btn btn-primary js-ajax-submit" style="background-color:#a6afb9;border-color:#a6afb9">返回修改</button>
+									   </form>
+                                   </div>
+                               </div>							
+                           </div>
+                    </div>
+                </div>
+			<include file="public@footer" />
+		</div>
+	<!-- /container -->
+	<include file="public@scripts" />
+</body>
+</html>

@@ -29,66 +29,31 @@
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li><a href="{:url('AdminGoods/index')}">产品列表</a></li>
-        <li class="active"><a href="{:url('AdminGoods/edit',array('id'=>$row.id))}">产辑商品</a></li>
+        <li><a href="{:url('AdminGroup/index')}">产品列表</a></li>
+        <li class="active"><a href="{:url('AdminGroup/edit',array('id'=>$row.id))}">产辑商品</a></li>
     </ul>
-    <form action="{:url('AdminGoods/editPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+    <form action="{:url('AdminGroup/editPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
         <div class="row">
             <div class="col-md-9">
                 <table class="table table-bordered">
                     <tr>
-                        <th>产品名称<span class="form-required">*</span></th>
+                        <th>组合名称<span class="form-required">*</span></th>
                         <td>
                             <input id="post-id" type="hidden" name="post[id]" value="{$row.id}">
                             <input class="form-control" type="text" name="post[name]"
-                                   id="title"  value="{$row.name}" placeholder="请输入产品名称"/>
+                                   id="title"  value="{$row.name}" placeholder="请输入组合名称"/>
                         </td>
                     </tr>
                     <tr>
-                        <th>每箱数量<span class="form-required">*</span></th>
+                        <th>组合数量<span class="form-required">*</span></th>
                         <td>
-                            <input class="form-control" type="number" name="post[size]" min="0" value="{$row.size}" placeholder="请填写每箱数量"/>
+                            <input class="form-control" type="number" name="post[count]" min="0" value="{$row.count}" placeholder="请填写产品组合数量"/>
                         </td>
                     </tr>
                     <tr>
-                        <th>进货单价<span class="form-required">*</span></th>
+                        <th>组合零售价<span class="form-required">*</span></th>
                         <td>
-                            <input class="form-control" type="number" name="post[buying_price]" min="0" value="{$row.buying_price}" placeholder="请填写产品进货单价"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>总监价<span class="form-required">*</span></th>
-                        <td>
-                            <input class="form-control" type="number" name="post[GM_price]" min="0" value="{$row.GM_price}" placeholder="请填写总监价"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>省代价<span class="form-required">*</span></th>
-                        <td>
-                            <input class="form-control" type="number" name="post[provincial_price]" min="0" value="{$row.provincial_price}" placeholder="请填写省代价"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>VIP价<span class="form-required">*</span></th>
-                        <td>
-                            <input class="form-control" type="number" name="post[vip_price]" min="0" value="{$row.vip_price}" placeholder="请填写VIP价"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>零售价<span class="form-required">*</span></th>
-                        <td>
-                            <input class="form-control" type="number" name="post[retail_price]" min="0" value="{$row.retail_price}" placeholder="请填写产品零售价"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>组合零售活动<span class="form-required">*</span></th>
-                        <td>
-                            <select class="form-control" name="post[group_id]" style="width: 140px;">
-                                <option value='0'>全部</option>
-                                <foreach name="myGroups" item="vo">
-                                    <option value="{$vo.id}" {$vo.selected}>{$vo.name}</option>
-                                </foreach>
-                            </select>
+                            <input class="form-control" type="number" name="post[group_price]" min="0" value="{$row.group_price}" placeholder="请填写产品组合零售价"/>
                         </td>
                     </tr>
                 </table>
