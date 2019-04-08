@@ -18,6 +18,12 @@ class GoodsModel extends Model
         'more' => 'array',
     ];
 
+    //绑定组合
+    public function group()
+    {
+        return $this->hasOne('GoodsGroupModel', 'id', 'group_id');
+    }
+
 
     //添加商品操作
     public function adminAddGoods($data,$user_id)
