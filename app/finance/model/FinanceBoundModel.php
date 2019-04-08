@@ -43,6 +43,30 @@ class FinanceBoundModel extends Model
 
     }
 
+    public function saveOutBound($data,$total_money,$out_goods,$grade_pmt){
+
+        $amount = $total_money + $data['float_money'] - $grade_pmt;
+
+        $user = cmf_get_current_user();
+        $save_data['bound_id'] = $this->createBoundId();
+        $save_data['money'] = $total_money;
+        $save_data['float_money'] = $data['float_money'];
+        $save_data['amount'] = $amount;
+        $save_data['user_id'] = $user['id'];
+        $save_data['type'] = 'outBound';
+        $save_data['memo'] = $data['memo'];
+        $save_data['goods'] = $out_goods;
+        $save_data['createtime'] = time();
+        $save_data['price_grade'] = $data['out_grade'];
+        $save_data['grade_pmt'] = $grade_pmt;
+        if($this->save($save_data)){
+            return $save_data['bound_id'];
+        }else{
+            return false;
+        }
+
+    }
+
     public function createBoundId(){
 
         $bound_id = $this->generatorId();

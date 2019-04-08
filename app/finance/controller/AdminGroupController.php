@@ -15,7 +15,7 @@ use cmf\controller\AdminBaseController;
 use app\finance\model\GoodsModel;
 use app\finance\model\GoodsGroupModel;
 
-class AdminGoodsController extends AdminBaseController
+class AdminGroupController extends AdminBaseController
 {
     public function __construct()
     {
@@ -27,7 +27,7 @@ class AdminGoodsController extends AdminBaseController
         $this->user_id = $user_id;
     }
 
-    //商品列表
+    //组合列表
     public function index()
     {
         $where = [];
@@ -36,11 +36,11 @@ class AdminGoodsController extends AdminBaseController
         $where['name'] = ['like',"%{$keyword}%"];
         $this->assign('keyword', $keyword);
 
-        $goodsModel = new GoodsModel();
+        $goodsGroupModel = new GoodsGroupModel();
 
         $where['user_id'] = $this->user_id;
 
-        $obj = $goodsModel->where($where);
+        $obj = $goodsGroupModel->where($where);
         $list =$obj->paginate(20);
         $page = $list->render();
         $this->assign('list',$list);
@@ -51,9 +51,6 @@ class AdminGoodsController extends AdminBaseController
     //添加商品
     public function add()
     {
-        $groupModel = new GoodsGroupModel();
-        $myGroups = $groupModel->adminGroupTableTree(0,$this->user_id);
-        $this->assign('myGroups',$myGroups);
         return $this->fetch();
     }
 
@@ -63,20 +60,19 @@ class AdminGoodsController extends AdminBaseController
         if ($this->request->isPost()) {
             $data = $this->request->param();
 
-            $data['post']['create_time'] = time();
             $data['post']['update_time']    = time();
             $data['post']['published_time'] = time();
             $post = $data['post'];
 
-            $result = $this->validate($post, 'Goods');
+            $result = $this->validate($post, 'Group');
             if ($result !== true) {
                 $this->error($result);
             }
 
-            $goodsModel = new GoodsModel();
+            $goodsGroupModel = new GoodsGroupModel();
 
-            $goodsModel->adminAddGoods($data['post'],$this->user_id);
-            $this->success('添加成功!', url('AdminGoods/index'));
+            $goodsGroupModel->adminAddGroup($data['post'],$this->user_id);
+            $this->success('添加成功!', url('AdminGroup/index'));
         }
     }
 
@@ -84,12 +80,9 @@ class AdminGoodsController extends AdminBaseController
     public function edit()
     {
         $id = $this->request->param("id", 0, 'intval');
-        $goodsModel = new GoodsModel();
-        $row = $goodsModel->where('id',$id)->find();
+        $goodsGroupModel = new GoodsGroupModel();
+        $row = $goodsGroupModel->where('id',$id)->find();
 
-        $groupModel = new GoodsGroupModel();
-        $myGroups = $groupModel->adminGroupTableTree($row['group_id'],$this->user_id);
-        $this->assign('myGroups',$myGroups);
 
         $this->assign('row',$row);
         return $this->fetch();
@@ -103,22 +96,22 @@ class AdminGoodsController extends AdminBaseController
             $data = $this->request->param();
             $post   = $data['post'];
 
-            $result = $this->validate($post, 'Goods');
+            $result = $this->validate($post, 'Group');
             if ($result !== true) {
                 $this->error($result);
             }
 
-            $goodsModel = new GoodsModel();
+            $goodsGroupModel = new GoodsGroupModel();
 
-            $goodsModel->adminEditGoods($data['post'], $this->user_id);
-            $this->success('保存成功!', url('AdminGoods/index'));
+            $goodsGroupModel->adminEditGroup($data['post'], $this->user_id);
+            $this->success('保存成功!', url('AdminGroup/index'));
 
         }
     }
 
     //上下架商品
     public function down(){
-        $goodsModel = new GoodsModel();
+        $goodsGroupModel = new GoodsGroupModel();
 
         $id = $this->request->param("id", 0, 'intval');
         $type = $this->request->param('type');
@@ -131,7 +124,7 @@ class AdminGoodsController extends AdminBaseController
             $updated['delete_time'] = 0;
             $updated['status'] = 1;
         }
-        $res = $goodsModel->where('id',$id)->update($updated);
+        $res = $goodsGroupModel->where('id',$id)->update($updated);
         if($res){
             $this->success('修改成功');
         }else{
