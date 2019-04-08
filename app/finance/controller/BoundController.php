@@ -22,6 +22,9 @@ use app\finance\model\GoodsGroupModel;
 
 class BoundController extends UserBaseController
 {
+    public function boundIndex(){
+        return $this->fetch();
+    }
 
     public function inBound(){
         $user = cmf_get_current_user();
@@ -177,7 +180,7 @@ class BoundController extends UserBaseController
                         }
                     }
                 }
-
+                unset($grade_info[0]);
                 if($grade_info){
                     $gradeModel = new GoodsGroupModel();
                     foreach ($grade_info as $grade_id => $value){
