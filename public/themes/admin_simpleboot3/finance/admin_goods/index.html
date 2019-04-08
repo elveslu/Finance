@@ -25,7 +25,7 @@
                 <th>省代价</th>
                 <th>VIP价</th>
                 <th>零售价</th>
-                <th width="160">更新时间</th>
+                <th width="160">绑定组合</th>
                 <th width="160">发布时间</th>
                 <th width="80">库存</th>
                 <th width="70">状态</th>
@@ -44,11 +44,7 @@
                     <td>{$vo.vip_price}</td>
                     <td>{$vo.retail_price}</td>
                     <!--<td>{$vo.description}</td>-->
-                    <td>
-                        <notempty name="vo.update_time">
-                            {:date('Y-m-d H:i',$vo['update_time'])}
-                        </notempty>
-                    </td>
+                    <td>{$vo.group.name?$vo.group.name:'无'}</td>
                     <td>
                         <notempty name="vo.published_time">
                             {:date('Y-m-d H:i',$vo['published_time'])}
@@ -78,7 +74,7 @@
                 <th>省代价</th>
                 <th>VIP价</th>
                 <th>零售价</th>
-                <th width="160">更新时间</th>
+                <th width="160">绑定组合</th>
                 <th width="160">发布时间</th>
                 <th width="80">库存</th>
                 <th width="70">状态</th>
