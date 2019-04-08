@@ -55,3 +55,29 @@ CREATE TABLE `cmf_finance_bound` (
   `createtime` int(10) unsigned DEFAULT NULL COMMENT '生成时间',
   PRIMARY KEY (`bound_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单据表';
+
+-- 产品组合表
+DROP TABLE IF EXISTS `cmf_goods_group`;
+CREATE TABLE `cmf_goods_group` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属用户',
+  `name` varchar(200) NOT NULL DEFAULT '' COMMENT '组合名称',
+  `group_price` float NOT NULL DEFAULT '0' COMMENT '组合零售价',
+  `count` int(11) NOT NULL DEFAULT '2' COMMENT '组合数量',
+  `status` enum('0','1') DEFAULT '1' COMMENT '状态：1-上架 0-下架',
+  `published_time` int(10) NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='产品组合表';
+
+-- 添加零售组合价
+ALTER TABLE `cmf_goods` ADD `group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '组合价id';
+
+-- 添加出货价格
+ALTER TABLE `cmf_finance_bound` ADD `price_grade` varchar(100) NOT NULL DEFAULT 'inBound' COMMENT '出货等级-inBound,vip_price,provincial_price,GM_price,retail_price';
+
+-- 添加是否正式库如
+ALTER TABLE `cmf_finance_bound` ADD `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '是否正式入库：0-未入库，1-正式入库';
+-- 添加套装优惠金额
+ALTER TABLE `cmf_finance_bound` ADD `grade_pmt` decimal(20,3) NOT NULL DEFAULT '0.000' COMMENT '套装优惠金额';
