@@ -70,8 +70,8 @@ class AdminFinanceController extends AdminBaseController
         $type = $this->request->param('type');
         $where['type'] = $type;
         $this->assign('type', $type);
-        $obj = $boundModel->where($where);
-        $list =$obj->paginate(20);
+        $obj = $boundModel->where($where)->order('createtime desc');
+        $list =$obj->paginate(15);
         $page = $list->render();
         $this->assign('list',$list);
         $this->assign('page',$page);
