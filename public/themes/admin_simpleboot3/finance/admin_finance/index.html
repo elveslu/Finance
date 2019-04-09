@@ -51,11 +51,12 @@
             <thead>
             <tr>
                 <th width="150">单据id</th>
-                <th>产品总价</th>
-                <th>浮动价格</th>
-                <th>最终价格</th>
+                <th width="50">产品总价</th>
+                <th width="50">浮动价格</th>
+                <th width="50">最终价格</th>
                 <th width="160">操作时间</th>
-                <th width="300">备注</th>
+                <th>操作产品</th>
+                <th width="700">备注</th>
             </tr>
             </thead>
             <tbody>
@@ -70,6 +71,7 @@
                             {:date('Y-m-d H:i',$vo['createtime'])}
                         </notempty>
                     </td>
+                    <td>{$vo.goods}</td>
                     <td>{$vo.memo}</td>
                 </tr>
             </foreach>
