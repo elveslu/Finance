@@ -109,15 +109,21 @@ class BoundController extends UserBaseController
 
         $boundinfo = $boundModel->find($_POST['bound_id'])->toArray();
         Db::startTrans();
+
         foreach ($boundinfo['goods'] as $goods_id => $num){
             $goods_info = $goodsModel->find($goods_id);
 
             //更新库存
             $inCount = $num*$goods_info['size'];
-            $total = $inCount + $goods_info['num'];
+            if($inCount == 0){
+                $flg = true;
+            }else{
+                $total = $inCount + $goods_info['num'];
+                $flg = $goodsModel->where(['id'=>$goods_id])->update(['num'=>$total]);
+            }
 
-            $flg = $goodsModel->where(['id'=>$goods_id])->update(['num'=>$total]);
         }
+
 
         if($flg){
             $flg2 = $boundModel->where(['bound_id'=>$_POST['bound_id']])->update(['status'=>1]);
