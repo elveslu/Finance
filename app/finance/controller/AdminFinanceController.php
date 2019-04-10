@@ -15,6 +15,7 @@ use cmf\controller\AdminBaseController;
 use app\finance\model\GoodsModel;
 use app\finance\model\GoodsGroupModel;
 use app\finance\model\FinanceBoundModel;
+use app\finance\model\AdminFinanceBoundModel;
 
 class AdminFinanceController extends AdminBaseController
 {
@@ -32,7 +33,7 @@ class AdminFinanceController extends AdminBaseController
     public function index()
     {
         $where = [];
-        $boundModel = new FinanceBoundModel();
+        $boundModel = new AdminFinanceBoundModel();
 
         $param = $this->request->param();
         $this->assign('start_time', isset($param['start_time']) ? $param['start_time'] : '');

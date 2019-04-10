@@ -92,18 +92,6 @@ class FinanceBoundModel extends Model
         }
     }
 
-    public function getGoodsAttr($value)
-    {
-        $return_value = '';
-        $goodsModel = new GoodsModel();
-        $val = json_decode($value,true);
-        foreach ($val as $key=>$item) {
-            $goods = $goodsModel->find($key);
-            $str = $goods['name'].'*'.$item.'</br>';
-            $return_value .= $str;
-        }
-        return $return_value;
-    }
 
 
 }

@@ -86,6 +86,7 @@ class BoundController extends UserBaseController
         $goodsModel = new GoodsModel();
         $g_info = '';
         $g_size = '';
+
         foreach ($boundinfo['goods'] as $goods_id => $num){
             $goods_info = $goodsModel->find($goods_id);
             $str = $goods_info['name'].' * '.$num.'（箱）';
