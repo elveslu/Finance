@@ -6,6 +6,15 @@
         <li class="active"><a href="javascript:;">财务报表</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('AdminFinance/index',array('type'=>'inBound'))}">&nbsp;
+        <if condition="$login_user_id == '1'">
+            用户:
+            <select class="form-control" name="user_id" style="width: 140px;">
+                <option value='0'>所有</option>
+                <foreach name="categoryTree" item="vo">
+                    <option value="{$vo.id}" {$vo.selected}>{$vo.user_login}</option>
+                </foreach>
+            </select>&nbsp;&nbsp;
+        </if>
         时间:
         <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
                value="{$start_time|default=''}"
@@ -14,7 +23,7 @@
                value="{$end_time|default=''}"
                style="width: 140px;" autocomplete="off">&nbsp;
         <input type="submit" class="btn btn-primary" value="搜索"/>
-        <a class="btn btn-danger" href="{:url('AdminFinance/index',array('type'=>'inBound'))}">清空</a>
+        <a class="btn btn-danger" href="{:url('AdminFinance/index',array('type'=>'inBound','user_id'=>$login_user_id))}">清空</a>
     </form>
     <form class="js-ajax-form" action="" method="post">
         <table class="table table-hover table-bordered table-list">
@@ -38,10 +47,10 @@
     <ul class="nav nav-tabs">
         <if condition="$type == 'inBound'">
             <li class="active"><a href="javascript:;">进货单列表</a></li>
-            <li><a href="{:url('AdminFinance/index',array('type'=>'outBound','start_time'=>$start_time,'end_time'=>$end_time))}">出货单列表</a></li>
+            <li><a href="{:url('AdminFinance/index',array('type'=>'outBound','start_time'=>$start_time,'end_time'=>$end_time,'user_id'=>$select_user_id))}">出货单列表</a></li>
         </if>
         <if condition="$type == 'outBound'">
-            <li><a href="{:url('AdminFinance/index',array('type'=>'inBound','start_time'=>$start_time,'end_time'=>$end_time))}">进货单列表</a></li>
+            <li><a href="{:url('AdminFinance/index',array('type'=>'inBound','start_time'=>$start_time,'end_time'=>$end_time,'user_id'=>$select_user_id))}">进货单列表</a></li>
             <li class="active"><a href="javascript:;">出货单列表</a></li>
         </if>
     </ul>
