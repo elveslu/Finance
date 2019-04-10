@@ -12,6 +12,7 @@ namespace app\user\model;
 
 use think\Db;
 use think\Model;
+use tree\Tree;
 
 class UserModel extends Model
 {
@@ -307,5 +308,27 @@ class UserModel extends Model
         $userInfo = Db::name("user")->where('id', $userId)->find();
         cmf_update_current_user($userInfo);
         return 0;
+    }
+
+    public function adminUserTableTree($currentIds = 0)
+    {
+        $where['user_type'] = 1;
+        $categories = $this->where($where)->select()->toArray();
+        return $this->getTree($currentIds,$categories);
+    }
+
+    public function getTree($currentIds = 0, $categories){
+        $tree       = new Tree();
+        $tree->icon = ['&nbsp;&nbsp;│', '&nbsp;&nbsp;├─', '&nbsp;&nbsp;└─'];
+        $tree->nbsp = '&nbsp;&nbsp;';
+        if (!is_array($currentIds)) {
+            $currentIds = [$currentIds];
+        }
+
+        foreach ($categories as &$item) {
+            $item['checked'] = in_array($item['id'], $currentIds) ? "checked" : "";
+            $item['selected'] = in_array($item['id'], $currentIds) ? "selected" : "";
+        }
+        return $categories;
     }
 }

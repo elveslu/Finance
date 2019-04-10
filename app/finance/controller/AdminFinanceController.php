@@ -16,6 +16,7 @@ use app\finance\model\GoodsModel;
 use app\finance\model\GoodsGroupModel;
 use app\finance\model\FinanceBoundModel;
 use app\finance\model\AdminFinanceBoundModel;
+use app\user\model\UserModel;
 
 class AdminFinanceController extends AdminBaseController
 {
@@ -33,6 +34,7 @@ class AdminFinanceController extends AdminBaseController
     public function index()
     {
         $where = [];
+        $where1 = [];
         $boundModel = new AdminFinanceBoundModel();
 
         $param = $this->request->param();
@@ -45,13 +47,25 @@ class AdminFinanceController extends AdminBaseController
             $where['createtime'] = ['>=',$startTime];
         }
         if (!empty($endTime)) {
-            $where['createtime'] = ['<=',$endTime];
+            $where1['createtime'] = ['<=',$endTime];
         }
 
-        $where['user_id'] = $this->user_id;
-        $where['status'] = '1';
+        $userModel = new UserModel();
+        $u_id = isset($param['user_id']) ? $param['user_id'] : 0;
+        $categoryTree = $userModel->adminUserTableTree($u_id);
+        $this->assign('categoryTree',$categoryTree);
 
-        $total_finance = $boundModel->where($where)->select();
+        if($this->user_id == 1){
+            if($u_id != 0){
+                $where['user_id'] = $u_id;
+            }
+        }else{
+            $where['user_id'] = $this->user_id;
+        }
+        $this->assign('login_user_id', $this->user_id);
+        $this->assign('select_user_id', $u_id);
+        $where['status'] = '1';
+        $total_finance = $boundModel->where($where)->where($where1)->select();
         $total_amount = 0;
         $in_amount = 0;
         $out_amount = 0;
@@ -71,7 +85,7 @@ class AdminFinanceController extends AdminBaseController
         $type = $this->request->param('type');
         $where['type'] = $type;
         $this->assign('type', $type);
-        $obj = $boundModel->where($where)->order('createtime desc');
+        $obj = $boundModel->where($where)->where($where1)->order('createtime desc');
         $list =$obj->paginate(15);
         $page = $list->render();
         $this->assign('list',$list);
