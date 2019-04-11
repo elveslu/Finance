@@ -49,8 +49,8 @@ class BoundController extends UserBaseController
             ]);
             $validate->message([
                 'goods_id.require'   => '必须选择一款产品进行入库',
-                'size.integer'         =>'箱数必须填写大于等于0的整数',
-                'size.gt'         =>'箱数必须填写大于等于0的整数',
+                'size.integer'         =>'数量必须填写大于等于0的整数',
+                'size.gt'         =>'数量必须填写大于等于0的整数',
                 'float_money.number'         =>'浮动金额请填写数字',
             ]);
 
@@ -87,13 +87,18 @@ class BoundController extends UserBaseController
         $g_info = '';
         $g_size = '';
 
+        if($boundinfo['unit'] == '1'){
+            $unit = '（箱）';
+        }else{
+            $unit = '（个）';
+        }
         foreach ($boundinfo['goods'] as $goods_id => $num){
             $goods_info = $goodsModel->find($goods_id);
-            $str = $goods_info['name'].' * '.$num.'（箱）';
+            $str = $goods_info['name'].' * '.$num.$unit;
             $g_info .= $str;
 
             $price = number_format($goods_info['buying_price']*$goods_info['size'],2);
-            $str_size = $goods_info['buying_price'].'（元） * '.$goods_info['size'].'（个） = '.$price.' /箱';
+            $str_size = $goods_info['buying_price'].'（元） * '.$goods_info['size'].'（个） = '.$price.'/箱';
             $g_size .= $str_size;
         }
         $boundinfo['goods_info'] = $g_info;
@@ -114,7 +119,12 @@ class BoundController extends UserBaseController
             $goods_info = $goodsModel->find($goods_id);
 
             //更新库存
-            $inCount = $num*$goods_info['size'];
+            if($boundinfo['unit'] == '1'){
+                $inCount = $num*$goods_info['size'];
+            }else{
+                $inCount = $num;
+            }
+
             if($inCount == 0){
                 $flg = true;
             }else{

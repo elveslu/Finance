@@ -21,7 +21,12 @@ class FinanceBoundModel extends Model
     public function saveInBound($data){
         $goodsModel = new GoodsModel();
         $goodinfo = $goodsModel->find($data['goods_id']);
-        $totalAmount = number_format($goodinfo['size']*$goodinfo['buying_price']*$data['size'],2,'.','');
+        if($data['unit'] == '1'){
+            $totalAmount = number_format($goodinfo['size']*$goodinfo['buying_price']*$data['size'],2,'.','');
+        }else{
+            $totalAmount = number_format($goodinfo['buying_price']*$data['size'],2,'.','');
+        }
+
 
         $amount = $totalAmount + $data['float_money'];
 
@@ -35,6 +40,7 @@ class FinanceBoundModel extends Model
         $save_data['memo'] = $data['memo'];
         $save_data['goods'] = [$data['goods_id']=>$data['size']];
         $save_data['createtime'] = time();
+        $save_data['unit'] = $data['unit'];
         if($this->save($save_data)){
             return $save_data['bound_id'];
         }else{
@@ -59,6 +65,7 @@ class FinanceBoundModel extends Model
         $save_data['createtime'] = time();
         $save_data['price_grade'] = $data['out_grade'];
         $save_data['grade_pmt'] = $grade_pmt;
+        $save_data['unit'] = '2';
         if($this->save($save_data)){
             return $save_data['bound_id'];
         }else{
