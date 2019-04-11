@@ -22,6 +22,9 @@
         <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
                value="{$end_time|default=''}"
                style="width: 140px;" autocomplete="off">&nbsp;
+        备注:
+        <input type="text" class="form-control" name="memo" style="width: 200px;"
+               value="{$memo|default=''}" placeholder="请输入备注...">
         <input type="submit" class="btn btn-primary" value="搜索"/>
         <a class="btn btn-danger" href="{:url('AdminFinance/index',array('type'=>'inBound','user_id'=>$login_user_id))}">清空</a>
     </form>
@@ -47,10 +50,10 @@
     <ul class="nav nav-tabs">
         <if condition="$type == 'inBound'">
             <li class="active"><a href="javascript:;">进货单列表</a></li>
-            <li><a href="{:url('AdminFinance/index',array('type'=>'outBound','start_time'=>$start_time,'end_time'=>$end_time,'user_id'=>$select_user_id))}">出货单列表</a></li>
+            <li><a href="{:url('AdminFinance/index',array('type'=>'outBound','start_time'=>$start_time,'end_time'=>$end_time,'user_id'=>$select_user_id,'memo'=>$memo))}">出货单列表</a></li>
         </if>
         <if condition="$type == 'outBound'">
-            <li><a href="{:url('AdminFinance/index',array('type'=>'inBound','start_time'=>$start_time,'end_time'=>$end_time,'user_id'=>$select_user_id))}">进货单列表</a></li>
+            <li><a href="{:url('AdminFinance/index',array('type'=>'inBound','start_time'=>$start_time,'end_time'=>$end_time,'user_id'=>$select_user_id,'memo'=>$memo))}">进货单列表</a></li>
             <li class="active"><a href="javascript:;">出货单列表</a></li>
         </if>
     </ul>
