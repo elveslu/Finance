@@ -164,7 +164,7 @@ class BoundController extends UserBaseController
         $this->assign($user);
 
         $goodsModel = new GoodsModel();
-        $goods = $goodsModel->where(['user_id'=>$user['id'],'status'=>'1'])->select();
+        $goods = $goodsModel->where(['user_id'=>$user['id'],'status'=>'1'])->where('num','>',0)->select();
         $this->assign('goods',$goods);
 
         return $this->fetch();

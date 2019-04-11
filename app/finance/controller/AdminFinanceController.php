@@ -37,6 +37,10 @@ class AdminFinanceController extends AdminBaseController
         $where1 = [];
         $boundModel = new AdminFinanceBoundModel();
 
+        $memo = $this->request->param('memo');
+        $where['memo'] = ['like',"%{$memo}%"];
+        $this->assign('memo', $memo);
+
         $param = $this->request->param();
         $this->assign('start_time', isset($param['start_time']) ? $param['start_time'] : '');
         $this->assign('end_time', isset($param['end_time']) ? $param['end_time'] : '');

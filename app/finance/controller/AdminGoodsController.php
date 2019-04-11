@@ -75,6 +75,15 @@ class AdminGoodsController extends AdminBaseController
 
             $goodsModel = new GoodsModel();
 
+            if($post['group_id']){
+                $group_price = $goodsModel->where(['group_id'=>$post['group_id']])->find();
+                if($group_price){
+                    if($group_price['retail_price'] != $post['retail_price']){
+                        $this->error('零售价不匹配，该产品无法加入组合！');
+                    }
+                }
+            }
+
             $goodsModel->adminAddGoods($data['post'],$this->user_id);
             $this->success('添加成功!', url('AdminGoods/index'));
         }
@@ -109,6 +118,15 @@ class AdminGoodsController extends AdminBaseController
             }
 
             $goodsModel = new GoodsModel();
+
+            if($post['group_id']){
+                $group_price = $goodsModel->where(['group_id'=>$post['group_id']])->find();
+                if($group_price){
+                    if($group_price['retail_price'] != $post['retail_price']){
+                        $this->error('零售价不匹配，该产品无法加入组合！');
+                    }
+                }
+            }
 
             $goodsModel->adminEditGoods($data['post'], $this->user_id);
             $this->success('保存成功!', url('AdminGoods/index'));
