@@ -81,3 +81,6 @@ ALTER TABLE `cmf_finance_bound` ADD `price_grade` varchar(100) NOT NULL DEFAULT 
 ALTER TABLE `cmf_finance_bound` ADD `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '是否正式入库：0-未入库，1-正式入库';
 -- 添加套装优惠金额
 ALTER TABLE `cmf_finance_bound` ADD `grade_pmt` decimal(20,3) NOT NULL DEFAULT '0.000' COMMENT '套装优惠金额';
+
+-- 添加进货单位
+ALTER TABLE `cmf_finance_bound` ADD `unit` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '进货单位：1-箱，2-个';
