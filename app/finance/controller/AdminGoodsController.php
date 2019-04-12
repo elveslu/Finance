@@ -40,7 +40,7 @@ class AdminGoodsController extends AdminBaseController
 
         $where['user_id'] = $this->user_id;
 
-        $obj = $goodsModel->where($where);
+        $obj = $goodsModel->where($where)->order('list_order desc');
         $list =$obj->paginate(20);
         $page = $list->render();
         $this->assign('list',$list);
