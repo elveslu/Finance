@@ -49,7 +49,7 @@ class FinanceBoundModel extends Model
 
     }
 
-    public function saveOutBound($data,$total_money,$out_goods,$grade_pmt){
+    public function saveOutBound($data,$total_money,$out_goods,$grade_pmt,$profit){
 
         $amount = $total_money + $data['float_money'] - $grade_pmt;
 
@@ -66,6 +66,7 @@ class FinanceBoundModel extends Model
         $save_data['price_grade'] = $data['out_grade'];
         $save_data['grade_pmt'] = $grade_pmt;
         $save_data['unit'] = '2';
+        $save_data['profit'] = $profit + $data['float_money'];
         if($this->save($save_data)){
             return $save_data['bound_id'];
         }else{

@@ -73,6 +73,7 @@ class AdminFinanceController extends AdminBaseController
         $total_amount = 0;
         $in_amount = 0;
         $out_amount = 0;
+        $profit = 0;
         foreach($total_finance as $key=>$val){
             if($val['type'] == 'inBound'){
                 $in_amount += $val['amount'];
@@ -80,11 +81,13 @@ class AdminFinanceController extends AdminBaseController
             }elseif($val['type'] == 'outBound'){
                 $out_amount += $val['amount'];
                 $total_amount += $val['amount'];
+                $profit += $val['profit'];
             }
         }
         $this->assign('in_amount', $in_amount);
         $this->assign('out_amount', $out_amount);
         $this->assign('total_amount', $total_amount);
+        $this->assign('profit', $profit);
 
         $type = $this->request->param('type');
         $where['type'] = $type;
@@ -95,6 +98,27 @@ class AdminFinanceController extends AdminBaseController
         $this->assign('list',$list);
         $this->assign('page',$page);
         return $this->fetch();
+    }
+
+    public function editProfit(){
+
+        $bound_id = $this->request->param('bound_id');
+
+        $boundModel = new AdminFinanceBoundModel();
+        $bound_info = $boundModel->find($bound_id);
+
+        $this->assign('bound_info',$bound_info);
+
+        return $this->fetch();
+    }
+
+    public function editPostProfit(){
+        $params = $this->request->param();
+
+        $boundModel = new AdminFinanceBoundModel();
+        $boundModel->where(['bound_id'=>$params['bound_id']])->update(['profit'=>$params['profit']]);
+
+        $this->success('编辑成功!', url('AdminFinance/index',array('type'=>'outBound')));
     }
 
 }

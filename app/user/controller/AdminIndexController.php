@@ -11,8 +11,11 @@
 
 namespace app\user\controller;
 
+use app\finance\model\GoodsGroupModel;
 use cmf\controller\AdminBaseController;
 use think\Db;
+use app\finance\model\FinanceBoundModel;
+use app\finance\model\GoodsModel;
 
 /**
  * Class AdminIndexController
@@ -56,6 +59,33 @@ class AdminIndexController extends AdminBaseController
      */
     public function index()
     {
+        $finance_model = new FinanceBoundModel();
+        $goodsModel = new GoodsModel();
+        $outBounds = $finance_model->where(['status'=>1,'type'=>'outBound'])->select();
+
+        foreach($outBounds as $key=>$val){
+            $buying = 0;
+            if($val['profit'] == 0){
+                if(!empty($val['goods'])){
+                    foreach ($val['goods'] as $goods_id=>$num){
+                        if($num){
+                            $goods_info = $goodsModel->find($goods_id);
+                            $buying += number_format($goods_info['buying_price'] * $num,2,'.','');
+                        }
+                    }
+
+                    $profit = $val['amount'] - $buying;
+
+                    $finance_model->where(['bound_id'=>$val['bound_id']])->update(['profit'=>$profit]);
+
+                }
+            }
+
+        }
+
+        echo '<pre>';print_r('操作完成！');exit;
+
+
         $content = hook_one('user_admin_index_view');
 
         if (!empty($content)) {

@@ -183,6 +183,7 @@ class BoundController extends UserBaseController
             $out_goods = [];
             $total_money = 0;
             $grade_pmt = 0;
+            $profit = 0;
 
             //组数据
             if($data['out_grade'] == 'retail_price'){
@@ -225,11 +226,13 @@ class BoundController extends UserBaseController
                     //计算金额
                     $out_goods[$goods_id] = $num;
                     $total_money += number_format($goods_info[$data['out_grade']] * $num,2,'.','');
+
+                    $profit += number_format(($goods_info[$data['out_grade']]-$goods_info['buying_price']) * $num,2,'.','');
                 }
             }
 
             //生成出库单
-            $bound_id = $boundModel->saveOutBound($data,$total_money,$out_goods,$grade_pmt);
+            $bound_id = $boundModel->saveOutBound($data,$total_money,$out_goods,$grade_pmt,$profit);
 
             if($bound_id){
                 $this->success("请确认信息无误后提交！", url("bound/jumpOutBoundPage",['bound_id'=>$bound_id]));
