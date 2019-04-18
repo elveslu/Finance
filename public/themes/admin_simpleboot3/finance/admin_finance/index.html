@@ -34,6 +34,7 @@
                 <tr>
                     <th>进货总金额</th>
                     <th>出货总金额</th>
+                    <th>预计收益</th>
                     <th>总计</th>
                 </tr>
             </thead>
@@ -41,6 +42,7 @@
                 <tr>
                     <td>{$in_amount}</td>
                     <td>{$out_amount}</td>
+                    <td>{$profit}</td>
                     <td>{$total_amount}</td>
                 </tr>
             </tbody>
@@ -69,6 +71,7 @@
                 <th width="160">操作时间</th>
                 <th width="260">操作产品</th>
                 <th width="50">单位</th>
+                <th width="80">预计收益</th>
                 <th>备注</th>
             </tr>
             </thead>
@@ -86,6 +89,14 @@
                     </td>
                     <td>{$vo.goods}</td>
                     <td><if condition="$vo.unit == '1'">箱</if><if condition="$vo.unit == '2'">个</if></td>
+                    <td>
+                        <if condition="$vo.type == 'outBound'">
+                            <a id="groupChat" class="btn btn-xs btn-primary" href="{:url('finance/AdminFinance/editProfit',array('bound_id'=>$vo.bound_id))}">{$vo.profit}</a>
+                        </if>
+                        <if condition="$vo.type == 'inBound'">
+                            {$vo.profit}
+                        </if>
+                    </td>
                     <td>{$vo.memo}</td>
                 </tr>
             </foreach>
