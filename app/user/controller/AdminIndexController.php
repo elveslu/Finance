@@ -59,7 +59,7 @@ class AdminIndexController extends AdminBaseController
      */
     public function index()
     {
-        $finance_model = new FinanceBoundModel();
+        /*$finance_model = new FinanceBoundModel();
         $goodsModel = new GoodsModel();
         $outBounds = $finance_model->where(['status'=>1,'type'=>'outBound'])->select();
 
@@ -83,7 +83,7 @@ class AdminIndexController extends AdminBaseController
 
         }
 
-        echo '<pre>';print_r('操作完成！');exit;
+        echo '<pre>';print_r('操作完成！');exit;*/
 
 
         $content = hook_one('user_admin_index_view');
