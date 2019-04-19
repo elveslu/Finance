@@ -116,7 +116,7 @@ class AdminFinanceController extends AdminBaseController
         $params = $this->request->param();
 
         $boundModel = new AdminFinanceBoundModel();
-        $boundModel->where(['bound_id'=>$params['bound_id']])->update(['profit'=>$params['profit']]);
+        $boundModel->where(['bound_id'=>$params['bound_id']])->update(['profit'=>$params['profit'],'memo'=>$params['memo']]);
 
         $this->success('编辑成功!', url('AdminFinance/index',array('type'=>'outBound')));
     }
