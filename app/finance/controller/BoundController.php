@@ -34,6 +34,13 @@ class BoundController extends UserBaseController
         $goods = $goodsModel->where(['user_id'=>$user['id'],'status'=>'1'])->select();
         $this->assign('goods',$goods);
 
+        if($user['id'] == 6){
+            $this->assign('flg','YLT');
+        }else{
+            $this->assign('flg','NONE');
+        }
+
+
         return $this->fetch();
     }
 
