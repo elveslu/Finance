@@ -43,6 +43,16 @@
 											</div>
 											<div class="form-group">
 												<label for="input-signature">备注</label>
+												<if condition="$flg == 'YLT'">
+													<input type="button" class="btn btn-primary zhichu" value="生活费" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="登支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="尤支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="陆支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="家支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="固定支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="意外支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="文娱支出" style="margin:4px" onclick="saveMemo(this);">
+												</if>
 												<textarea class="form-control" id="input-signature" placeholder="备注" name="memo"></textarea>
 											</div>
                                    			<div class="form-group">
@@ -58,5 +68,10 @@
 		</div>
 	<!-- /container -->
 	<include file="public@scripts" />
+<script>
+    function saveMemo(obj) {
+        $('#input-signature').val(obj.value);
+    }
+</script>
 </body>
 </html>
