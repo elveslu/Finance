@@ -1,0 +1,136 @@
+<include file="public@header"/>
+</head>
+<body>
+<script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">指数pe</a></li>
+    </ul>
+
+    <div>
+        <div id="container" style="width: 49%;float: left;"></div>
+        <div id="container2" style="width: 49%;float: right;"></div>
+        <div id="container3" style="width: 49%;float: left;"></div>
+        <div id="container6" style="width: 49%;float: right;"></div>
+        <div id="container4" style="width: 49%;float: left;"></div>
+        <div id="container7" style="width: 49%;float: right;"></div>
+        <div id="container5" style="width: 49%;float: left;"></div>
+        <div id="container8" style="width: 49%;float: right;"></div>
+
+    </div>
+</div>
+<script>
+    Highcharts.chart('container', {
+        title: {
+            text: '上证1500'
+        },
+        xAxis: {
+            categories: {$shangzheng1500date}
+        },
+        series: [{
+            data: {$shangzheng1500pe},
+            name: '上证1500',
+            color:"#ffa888"
+        }
+        ]
+    });
+    Highcharts.chart('container3', {
+        title: {
+            text: '深证1000'
+        },
+        xAxis: {
+            categories: {$shengzheng1000date}
+        },
+        series: [{
+            data: {$shengzheng1000pe},
+            name: '深证1000',
+            color:"#f270ff"
+        }
+        ]
+    });
+    Highcharts.chart('container4', {
+        title: {
+            text: '创业板800'
+        },
+        xAxis: {
+            categories: {$chuangye800date}
+        },
+        series: [{
+            data: {$chuangye800pe},
+            name: '创业板800',
+            color:"#9391ff"
+        }]
+    });
+    Highcharts.chart('container5', {
+        title: {
+            text: '沪深300'
+        },
+        xAxis: {
+            categories: {$shangzheng1500date}
+        },
+        series: [{
+            data: {$husheng300pe},
+            name: '沪深300',
+            color:"#ff3f46"
+        }
+        ]
+    });
+    Highcharts.chart('container2', {
+        title: {
+            text: '近期上证1500pe走势'
+        },
+        xAxis: {
+            categories: {$jinqishangzheng1500date}
+        },
+        series: [{
+            data: {$jinqishangzheng1500pe},
+            //step: 'right', // 连接线转折对齐
+            name: '近期上证1500pe',
+            color:"#ffa888"
+        }]
+    });
+    Highcharts.chart('container6', {
+        title: {
+            text: '近期深证1000pe走势'
+        },
+        xAxis: {
+            categories: {$jinqishengzheng1000date}
+        },
+        series: [{
+            data: {$jinqishengzheng1000pe},
+            //step: 'right', // 连接线转折对齐
+            name: '近期深证1000pe',
+            color:"#f270ff"
+        }]
+    });
+    Highcharts.chart('container7', {
+        title: {
+            text: '近期创业板800pe走势'
+        },
+        xAxis: {
+            categories: {$jinqichuangye800date}
+        },
+        series: [{
+            data: {$jinqichuangye800pe},
+            //step: 'right', // 连接线转折对齐
+            name: '近期创业板800pe',
+            color:"#9391ff"
+        }]
+    });
+    Highcharts.chart('container8', {
+        title: {
+            text: '近期沪深300pe走势'
+        },
+        xAxis: {
+            categories: {$jinqihusheng300date}
+        },
+        series: [{
+            data: {$jinqihusheng300pe},
+            //step: 'right', // 连接线转折对齐
+            name: '近期沪深300pe',
+            color:"#ff3f46"
+        }]
+    });
+</script>
+</body>
+</html>

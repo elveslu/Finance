@@ -17,6 +17,7 @@ use app\finance\model\GoodsGroupModel;
 use app\finance\model\FinanceBoundModel;
 use app\finance\model\AdminFinanceBoundModel;
 use app\user\model\UserModel;
+use app\finance\model\PesModel;
 
 class AdminFinanceController extends AdminBaseController
 {
@@ -119,6 +120,65 @@ class AdminFinanceController extends AdminBaseController
         $boundModel->where(['bound_id'=>$params['bound_id']])->update(['profit'=>$params['profit'],'memo'=>$params['memo']]);
 
         $this->success('编辑成功!', url('AdminFinance/index',array('type'=>'outBound')));
+    }
+
+    public function pe(){
+        $pesModel = new PesModel();
+        $shangzheng1500 = $pesModel->where(['code'=>'000001.XSHG'])->order('date ASC')->select()->toArray();
+
+        $shangzheng1500pe = [];
+        $shangzheng1500date = [];
+        foreach ($shangzheng1500 as $key=>$val){
+            $shangzheng1500pe[] = $val['pe'];
+            $shangzheng1500date[] = $val['date'];
+        }
+
+        $shengzheng1000 = $pesModel->where(['code'=>'399011.XSHE'])->order('date ASC')->select()->toArray();
+
+        $shengzheng1000pe = [];
+        $shengzheng1000date = [];
+        foreach ($shengzheng1000 as $key=>$val){
+            $shengzheng1000pe[] = $val['pe'];
+            $shengzheng1000date[] = $val['date'];
+        }
+
+        $chuangye800 = $pesModel->where(['code'=>'399102.XSHE'])->order('date ASC')->select()->toArray();
+
+        $chuangye800pe = [];
+        $chuangye800date = [];
+        foreach ($chuangye800 as $key=>$val){
+            $chuangye800pe[] = $val['pe'];
+            $chuangye800date[] = $val['date'];
+        }
+
+        $husheng300 = $pesModel->where(['code'=>'399300.XSHE'])->order('date ASC')->select()->toArray();
+
+        $husheng300pe = [];
+        $husheng300date = [];
+        foreach ($husheng300 as $key=>$val){
+            $husheng300pe[] = $val['pe'];
+            $husheng300date[] = $val['date'];
+        }
+
+        $this->assign('shangzheng1500pe',json_encode($shangzheng1500pe));
+        $this->assign('shangzheng1500date',json_encode($shangzheng1500date));
+        $this->assign('shengzheng1000pe',json_encode($shengzheng1000pe));
+        $this->assign('shengzheng1000date',json_encode($shengzheng1000date));
+        $this->assign('chuangye800pe',json_encode($chuangye800pe));
+        $this->assign('chuangye800date',json_encode($chuangye800date));
+        $this->assign('husheng300pe',json_encode($husheng300pe));
+        $this->assign('husheng300date',json_encode($husheng300date));
+
+        $this->assign('jinqishangzheng1500pe',json_encode(array_slice($shangzheng1500pe,-120)));
+        $this->assign('jinqishangzheng1500date',json_encode(array_slice($shangzheng1500date,-120)));
+        $this->assign('jinqishengzheng1000pe',json_encode(array_slice($shengzheng1000pe,-120)));
+        $this->assign('jinqishengzheng1000date',json_encode(array_slice($shengzheng1000date,-120)));
+        $this->assign('jinqichuangye800pe',json_encode(array_slice($chuangye800pe,-120)));
+        $this->assign('jinqichuangye800date',json_encode(array_slice($chuangye800date,-120)));
+        $this->assign('jinqihusheng300pe',json_encode(array_slice($husheng300pe,-120)));
+        $this->assign('jinqihusheng300date',json_encode(array_slice($husheng300date,-120)));
+
+        return $this->fetch();
     }
 
 }
