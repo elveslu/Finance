@@ -48,7 +48,6 @@ class LoginController extends HomeBaseController
     {
         if ($this->request->isPost()) {
             $validate = new \think\Validate([
-                'captcha'  => 'require',
                 'username' => 'require',
                 'password' => 'require|min:6|max:32',
             ]);
@@ -57,7 +56,6 @@ class LoginController extends HomeBaseController
                 'password.require' => '密码不能为空',
                 'password.max'     => '密码不能超过32个字符',
                 'password.min'     => '密码不能小于6个字符',
-                'captcha.require'  => '验证码不能为空',
             ]);
 
             $data = $this->request->post();
@@ -65,9 +63,9 @@ class LoginController extends HomeBaseController
                 $this->error($validate->getError());
             }
 
-            if (!cmf_captcha_check($data['captcha'])) {
+            /*if (!cmf_captcha_check($data['captcha'])) {
                 $this->error(lang('CAPTCHA_NOT_RIGHT'));
-            }
+            }*/
 
             $userModel         = new UserModel();
             $user['user_pass'] = $data['password'];
