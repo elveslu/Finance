@@ -199,6 +199,18 @@ class AdminFinanceController extends AdminBaseController
         $this->assign('shangzheng1500pe',json_encode($shangzheng1500pe));
         $this->assign('shangzheng1500date',json_encode($shangzheng1500date));
 
+        //获取最近的相同长度的数据
+        $shangzhengzuijin1500 = $pesModel->where(['code'=>$data['code']])->order('date DESC')->limit(count($shangzheng1500date))->select()->toArray();
+        $shangzhengzuijin1500 = array_reverse($shangzhengzuijin1500);
+
+        $shangzhengzuijin1500pe = [];
+        foreach ($shangzhengzuijin1500 as $key=>$val){
+            $shangzhengzuijin1500pe[] = $val['pe'];
+        }
+
+        $this->assign('shangzhengzuijin1500pe',json_encode($shangzhengzuijin1500pe));
+
+
         return $this->fetch();
     }
 
