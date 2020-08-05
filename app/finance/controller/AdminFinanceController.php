@@ -181,4 +181,25 @@ class AdminFinanceController extends AdminBaseController
         return $this->fetch();
     }
 
+    public function peSelect(){
+        $data = $this->request->param();
+
+        $start = explode(' ',$data['start_time']);
+        $end = explode(' ',$data['end_time']);
+        $pesModel = new PesModel();
+        $shangzheng1500 = $pesModel->where(['code'=>$data['code']])->where('date','>',$start['0'])->where('date','<',$end['0'])->order('date ASC')->select()->toArray();
+
+        $shangzheng1500pe = [];
+        $shangzheng1500date = [];
+        foreach ($shangzheng1500 as $key=>$val){
+            $shangzheng1500pe[] = $val['pe'];
+            $shangzheng1500date[] = $val['date'];
+        }
+
+        $this->assign('shangzheng1500pe',json_encode($shangzheng1500pe));
+        $this->assign('shangzheng1500date',json_encode($shangzheng1500date));
+
+        return $this->fetch();
+    }
+
 }

@@ -1,0 +1,33 @@
+<include file="public@header"/>
+</head>
+<body>
+<script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class=""><a href="{:url('AdminFinance/pe')}">整体pe</a></li>
+        <li class="active"><a href="{:url('AdminFinance/pe')}">具体pe</a></li>
+    </ul>
+
+    <div>
+        <div id="container" style="width: 100%;float: left;"></div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    Highcharts.chart('container', {
+        title: {
+            text: '具体pe'
+        },
+        xAxis: {
+            categories: {$shangzheng1500date}
+        },
+        series: [{
+            data: {$shangzheng1500pe},
+            name: '具体pe',
+            color:"#ffa888"
+        }
+        ]
+    });
+</script>
+</body>
+</html>
