@@ -8,6 +8,25 @@
         <li class="active"><a href="{:url('AdminFinance/pe')}">具体pe</a></li>
     </ul>
 
+    <form class="well form-inline margin-top-20" method="post" action="{:url('AdminFinance/peSelect')}">&nbsp;
+        指数:
+        <select class="form-control" name="code" style="width: 140px;">
+            <option value='000001.XSHG'>上证1500</option>
+            <option value="399011.XSHE">深证1000</option>
+            <option value="399102.XSHE">创业板800</option>
+            <option value="399300.XSHE">沪深300</option>
+        </select>&nbsp;&nbsp;
+        时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$start_time|default=''}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$end_time|default=''}"
+               style="width: 140px;" autocomplete="off">&nbsp;
+        <input type="submit" class="btn btn-primary" value="查看"/>
+        <a class="btn btn-danger" href="{:url('AdminFinance/pe')}">清空</a>
+    </form>
+
     <div>
         <div id="container" style="width: 100%;float: left;"></div>
     </div>
