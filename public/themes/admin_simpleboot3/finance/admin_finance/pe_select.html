@@ -29,13 +29,14 @@
 
     <div>
         <div id="container" style="width: 100%;float: left;"></div>
+        <div id="container1" style="width: 100%;float: left;"></div>
     </div>
 </div>
 <script src="__STATIC__/js/admin.js"></script>
 <script>
     Highcharts.chart('container', {
         title: {
-            text: '具体pe'
+            text: '选择段pe'
         },
         xAxis: {
             categories: {$shangzheng1500date}
@@ -45,6 +46,26 @@
             name: '具体pe',
             color:"#ffa888"
         }
+        ]
+    });
+    Highcharts.chart('container1', {
+        title: {
+            text: '时间点对比'
+        },
+        xAxis: {
+            categories: {$shangzheng1500date}
+        },
+        series: [
+            {
+                data: {$shangzheng1500pe},
+                name: '选择段pe',
+                color:"#6da9ff"
+            },
+            {
+                data: {$shangzhengzuijin1500pe},
+                name: '最新pe',
+                color:"#ff3f46"
+            }
         ]
     });
 </script>
