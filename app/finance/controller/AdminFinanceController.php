@@ -100,7 +100,15 @@ class AdminFinanceController extends AdminBaseController
         $this->assign('type', $type);
         $obj = $boundModel->where($where)->where($where1)->order('createtime desc');
         $list =$obj->paginate(50);
-        $list->appends(array_merge($where,$where1));
+        //echo '<pre>';print_r(array_merge($where,$where1));exit;
+        $appends = [];
+        if($memo){
+            $appends['memo'] = ['like',"%{$memo}%"];
+        }
+        $appends['user_id'] = $select_user_id;
+        $appends['createtime'] = ['>=',$startTime];
+        $appends['createtime'] = ['<=',$endTime];
+        $list->appends($appends);
         $page = $list->render();
         $this->assign('list',$list);
         $this->assign('page',$page);
