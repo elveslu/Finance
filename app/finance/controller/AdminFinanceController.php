@@ -60,13 +60,18 @@ class AdminFinanceController extends AdminBaseController
         $categoryTree = $userModel->adminUserTableTree($u_id);
         $this->assign('categoryTree',$categoryTree);
 
+
+        $select_user_id = '';
         if($this->user_id == 1){
             if($u_id != 0){
-                $where['user_id'] = $u_id;
+                $select_user_id = $u_id;
+                //$where['user_id'] = $u_id;
             }
         }else{
-            $where['user_id'] = $this->user_id;
+            $select_user_id = $this->user_id;
+            //$where['user_id'] = $this->user_id;
         }
+        $where['user_id'] = $select_user_id;
         $this->assign('login_user_id', $this->user_id);
         $this->assign('select_user_id', $u_id);
         $where['status'] = '1';
@@ -94,7 +99,8 @@ class AdminFinanceController extends AdminBaseController
         $where['type'] = $type;
         $this->assign('type', $type);
         $obj = $boundModel->where($where)->where($where1)->order('createtime desc');
-        $list =$obj->paginate(15);
+        $list =$obj->paginate(50);
+        $list->appends(['memo' => ['like', "%$memo%"], 'createtime' => ['>=',$startTime],'createtime'=>['<=',$endTime],'user_id'=>$select_user_id]);
         $page = $list->render();
         $this->assign('list',$list);
         $this->assign('page',$page);
