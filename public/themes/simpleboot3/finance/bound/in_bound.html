@@ -44,14 +44,24 @@
 											<div class="form-group">
 												<label for="input-signature">备注</label>
 												<if condition="$flg == 'YLT'">
-													<input type="button" class="btn btn-primary zhichu" value="生活费" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="登支出" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="尤支出" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="陆支出" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="家支出" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="固定支出" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="意外支出" style="margin:4px" onclick="saveMemo(this);">
-													<input type="button" class="btn btn-primary zhichu" value="文娱支出" style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="生活费  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="登支出  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="尤支出  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="陆支出  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="家支出  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="固定支出  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="意外支出  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="文娱支出  " style="margin:4px" onclick="saveMemo(this);">
+												</if>
+												<if condition="$flg == 'TOBO'">
+													<input type="button" class="btn btn-primary zhichu" value="2020成考  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="太湖学院  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="护理  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="本科  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="快递费  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="复习材料费用  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="学费成本  " style="margin:4px" onclick="saveMemo(this);">
+													<input type="button" class="btn btn-primary zhichu" value="学费全额收款  " style="margin:4px" onclick="saveMemo(this);">
 												</if>
 												<textarea class="form-control" id="input-signature" placeholder="备注" name="memo"></textarea>
 											</div>
@@ -70,7 +80,10 @@
 	<include file="public@scripts" />
 <script>
     function saveMemo(obj) {
-        $('#input-signature').val(obj.value);
+        var value = $('#input-signature').val();
+        console.log(value);
+        var values = value+obj.value;
+        $('#input-signature').val(values);
     }
 </script>
 </body>
