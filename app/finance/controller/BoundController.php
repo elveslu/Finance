@@ -36,6 +36,8 @@ class BoundController extends UserBaseController
 
         if($user['id'] == 6){
             $this->assign('flg','YLT');
+        }elseif($user['id'] == 8){
+            $this->assign('flg','TUBO');
         }else{
             $this->assign('flg','NONE');
         }
