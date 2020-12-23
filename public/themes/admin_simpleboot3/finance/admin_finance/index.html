@@ -71,6 +71,9 @@
                 <th width="160">操作时间</th>
                 <th width="260">操作产品</th>
                 <th width="50">单位</th>
+                <if condition="$type == 'inBound'">
+                    <th width="50">操作</th>
+                </if>
                 <th width="80">预计收益</th>
                 <th>备注</th>
             </tr>
@@ -89,6 +92,9 @@
                     </td>
                     <td>{$vo.goods}</td>
                     <td><if condition="$vo.unit == '1'">箱</if><if condition="$vo.unit == '2'">个</if></td>
+                    <if condition="$type == 'inBound'">
+                        <td><a class="btn btn-xs btn-primary" href="javascript:notUse({$vo.bound_id});">非必要</a></td>
+                    </if>
                     <td>
                         <if condition="$vo.type == 'outBound'">
                             <a id="groupChat" class="btn btn-xs btn-primary" href="{:url('finance/AdminFinance/editProfit',array('bound_id'=>$vo.bound_id))}">{$vo.profit}</a>
@@ -110,6 +116,24 @@
 
     function reloadPage(win) {
         win.location.reload();
+    }
+
+    function notUse(a){
+        $.ajax({
+            url: "{:url('finance/AdminFinance/notUse')}",
+            type: 'post',
+            dataType: 'json',
+            data:{a},
+            success: function (data) {
+
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
+            }
+        });
     }
 
     $(function () {

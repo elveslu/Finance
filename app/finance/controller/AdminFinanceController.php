@@ -228,4 +228,14 @@ class AdminFinanceController extends AdminBaseController
         return $this->fetch();
     }
 
+    public function notUse(){
+        $data = $this->request->param();
+        $bound_id = $data['a'];
+        //查询memo
+        $boundModel = new AdminFinanceBoundModel();
+        $memo = $boundModel->where(['bound_id'=>$bound_id])->field('memo')->find();
+        $memo_new = $memo['memo'].'  可省';
+        $boundModel->where(['bound_id'=>$bound_id])->update(['memo'=>$memo_new]);
+    }
+
 }
