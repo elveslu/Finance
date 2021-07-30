@@ -36,6 +36,9 @@
 													<input class="form-control" type="number" name="goods[{$vo.id}]" placeholder="请填写出货个数">
 												</div>
 											</foreach>
+											<if condition="$flg == 'admin'">
+												<input class="form-control" type="text" name="inbound_id" placeholder="请填写对应的进货单id">
+											</if>
 											<div class="form-group">
 												<label>浮动金额</label>
 												<input class="form-control" type="number" id="input-float_money" name="float_money" placeholder="浮动金额-当实际进货金额小于进货价，请填写负数，反之填写正数" required value="0">

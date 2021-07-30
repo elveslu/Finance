@@ -172,6 +172,14 @@ class BoundController extends UserBaseController
         $user = cmf_get_current_user();
         $this->assign($user);
 
+        if($user['id'] == 6){
+            $this->assign('flg','YLT');
+        }elseif($user['id'] == 1){
+            $this->assign('flg','admin');
+        }else{
+            $this->assign('flg','NONE');
+        }
+
         $goodsModel = new GoodsModel();
         $goods = $goodsModel->where(['user_id'=>$user['id'],'status'=>'1'])->where('num','>',0)->select();
         $this->assign('goods',$goods);
@@ -238,6 +246,13 @@ class BoundController extends UserBaseController
 
                     $profit += number_format(($goods_info[$data['out_grade']]-$goods_info['buying_price']) * $num,2,'.','');
                 }
+            }
+
+            //如果是admin（记录股票的情况）  自动重新计算利润
+            if($user['id'] == 1){
+                //查询进货金额
+                $amount = $boundModel->where(['bound_id'=>$data['inbound_id']])->field('amount')->find();
+                $profit = $total_money - $amount['amount'];
             }
 
             //生成出库单
