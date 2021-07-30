@@ -1,0 +1,142 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">当日操作</a></li>
+    </ul>
+    <ul class="pagination"></ul>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">操作列表</a></li>
+    </ul>
+    </br>
+    <form class="js-ajax-form" action="" method="post">
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th width="150">单据id</th>
+                <th width="80">产品总价</th>
+                <th width="80">浮动价格</th>
+                <th width="80">最终价格</th>
+                <th width="160">操作时间</th>
+                <th width="260">操作产品</th>
+                <th width="50">单位</th>
+                <th width="80">预计收益</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.bound_id}</td>
+                    <td>{$vo.money}</td>
+                    <td>{$vo.float_money}</td>
+                    <td>{$vo.amount}</td>
+                    <td>
+                        <notempty name="vo.createtime">
+                            {:date('Y-m-d H:i',$vo['createtime'])}
+                        </notempty>
+                    </td>
+                    <td>{$vo.goods}</td>
+                    <td><if condition="$vo.unit == '1'">箱</if><if condition="$vo.unit == '2'">个</if></td>
+                    <td>
+                        <if condition="$vo.type == 'outBound'">
+                            <a id="groupChat" class="btn btn-xs btn-primary" href="{:url('finance/AdminFinance/editProfit',array('bound_id'=>$vo.bound_id))}">{$vo.profit}</a>
+                        </if>
+                        <if condition="$vo.type == 'inBound'">
+                            {$vo.profit}
+                        </if>
+                    </td>
+                    <td>{$vo.memo}</td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <ul class="pagination">{$page|default=''}</ul>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+
+    function reloadPage(win) {
+        win.location.reload();
+    }
+
+    function notUse(a){
+        $.ajax({
+            url: "{:url('finance/AdminFinance/notUse')}",
+            type: 'post',
+            dataType: 'json',
+            data:{a},
+            success: function (data) {
+                alert('设置完成！');
+            },
+            error: function () {
+
+            },
+            complete: function () {
+                alert('设置完成！');
+            }
+        });
+    }
+
+    $(function () {
+        setCookie("refersh_time", 0);
+        Wind.use('ajaxForm', 'artDialog', 'iframeTools', function () {
+            //批量复制
+            $('.js-articles-copy').click(function (e) {
+                var ids = [];
+                $("input[name='ids[]']").each(function () {
+                    if ($(this).is(':checked')) {
+                        ids.push($(this).val());
+                    }
+                });
+
+                if (ids.length == 0) {
+                    art.dialog.through({
+                        id: 'error',
+                        icon: 'error',
+                        content: '您没有勾选信息，无法进行操作！',
+                        cancelVal: '关闭',
+                        cancel: true
+                    });
+                    return false;
+                }
+
+                ids = ids.join(',');
+                art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=copy&ids=" + ids, {
+                    title: "批量复制",
+                    width: "300px"
+                });
+            });
+            //批量移动
+            $('.js-articles-move').click(function (e) {
+                var ids = [];
+                $("input[name='ids[]']").each(function () {
+                    if ($(this).is(':checked')) {
+                        ids.push($(this).val());
+                    }
+                });
+
+                if (ids.length == 0) {
+                    art.dialog.through({
+                        id: 'error',
+                        icon: 'error',
+                        content: '您没有勾选信息，无法进行操作！',
+                        cancelVal: '关闭',
+                        cancel: true
+                    });
+                    return false;
+                }
+
+                ids = ids.join(',');
+                art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=move&old_term_id={$term.term_id|default=0}&ids=" + ids, {
+                    title: "批量移动",
+                    width: "300px"
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>

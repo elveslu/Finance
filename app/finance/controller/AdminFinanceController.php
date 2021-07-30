@@ -238,4 +238,26 @@ class AdminFinanceController extends AdminBaseController
         $boundModel->where(['bound_id'=>$bound_id])->update(['memo'=>$memo_new]);
     }
 
+
+    public function sellToday(){
+        $where = [];
+        $where1 = [];
+        $boundModel = new AdminFinanceBoundModel();
+
+        $startTime = empty($param['start_time']) ? 0 : strtotime($param['start_time']);
+        $endTime   = empty($param['end_time']) ? 0 : strtotime($param['end_time']);
+
+        $this->user_id;
+
+        $today = strtotime(date("Y-m-d"),time());
+        $start_date = $today - 7*86400;
+        $end_time = $today - 6*86400;
+        $total_finance = $boundModel->where(['user_id'=>'1'])
+            ->where(['type'=>'inBound'])
+            ->where('createtime','>',$start_date)->where('createtime','<',$end_time)->select();
+
+        $this->assign('list',$total_finance);
+        return $this->fetch();
+    }
+
 }
