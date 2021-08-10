@@ -252,7 +252,7 @@ class BoundController extends UserBaseController
             if($user['id'] == 1){
                 //查询进货金额
                 $amount = $boundModel->where(['bound_id'=>$data['inbound_id']])->field('amount')->find();
-                $profit = $total_money - $amount['amount'];
+                $profit = $total_money - $amount['amount'] - $amount['amount']*2/1000;
             }
 
             //生成出库单
