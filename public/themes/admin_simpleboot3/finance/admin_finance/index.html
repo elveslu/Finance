@@ -97,7 +97,7 @@
                     </if>
                     <td>
                         <if condition="$vo.type == 'outBound'">
-                            <a id="groupChat" class="btn btn-xs btn-primary" href="{:url('finance/AdminFinance/editProfit',array('bound_id'=>$vo.bound_id))}">{$vo.profit}</a>
+                            <a id="groupChat" class="btn btn-xs btn-primary" style="background-color: <if condition="$vo.profit < 0">#25ae3c<else> #e30c0c</if>" href="{:url('finance/AdminFinance/editProfit',array('bound_id'=>$vo.bound_id))}">{$vo.profit}</a>
                         </if>
                         <if condition="$vo.type == 'inBound'">
                             {$vo.profit}
@@ -108,7 +108,7 @@
             </foreach>
             </tbody>
         </table>
-        <ul class="pagination">{$page|default=''}</ul>
+        <ul class="on">{$page|default=''}</ul>
     </form>
 </div>
 <script src="__STATIC__/js/admin.js"></script>
